@@ -17,7 +17,7 @@ def main():
 	screen = pygame.display.set_mode(size)
 
 	# Название игры
-	pygame.display.set_caption("Платформер")
+	pygame.display.set_caption("Game")
 
 	# Создаем игрока
 	player = Player()
