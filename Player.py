@@ -1,18 +1,13 @@
 import pygame
-# Класс, описывающий поведение главного игрока
 class Player(pygame.sprite.Sprite):
 
 	def __init__(self):
 		super().__init__()
 
-		# Создаем изображение для игрока
-		# Изображение находится в этой же папке проекта
 		self.image = pygame.image.load('img\player.png')
 
-		# Установите ссылку на изображение прямоугольника
 		self.rect = self.image.get_rect()
 
-		# Задаем вектор скорости игрока
 		self.change_x = 0
 		self.change_y = 0
 
@@ -20,7 +15,6 @@ class Player(pygame.sprite.Sprite):
 		self.rect.x += self.change_x
 		self.rect.y += self.change_y
 
-	# Передвижение игрока
 	def go_left(self):
 		self.change_x = -9
 
@@ -36,7 +30,3 @@ class Player(pygame.sprite.Sprite):
 	def stop(self):
 		self.change_x = 0
 		self.change_y = 0
-
-	def flip(self):
-		# переворот игрока (зеркальное отражение)
-		self.image = pygame.transform.flip(self.image, True, False)
