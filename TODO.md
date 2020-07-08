@@ -3,6 +3,7 @@ TODO:
 
 Map:
   + Draw map
+  - Add background texture 
   - Draw boxes
   - Draw enemies
 
