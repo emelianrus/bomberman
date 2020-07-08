@@ -5,9 +5,6 @@ from Level import Level_01
 SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 750
 
-background_image = 'img/background.png'
-# Подключение фото для заднего фона
-# Здесь лишь создание переменной, вывод заднего фона ниже в коде
 bg = pygame.image.load('img/background.png')
 
 # Основная функция прогарммы
@@ -68,12 +65,6 @@ def main():
 
 			if event.type == pygame.KEYUP:
 				player.stop()
-				# if event.key == pygame.K_LEFT and player.change_x < 0:
-				# 	player.stop()
-				# if event.key == pygame.K_RIGHT and player.change_x > 0:
-				# 	player.stop()
-				# if event.key == pygame.K_RIGHT and player.change_x > 0:
-				# 	player.stop()
 
 		# Обновляем игрока
 		active_sprite_list.update()
