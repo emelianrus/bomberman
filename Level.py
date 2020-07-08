@@ -32,8 +32,8 @@ class Level_01(Level):
 
 		# Массив с данными про платформы. Данные в таком формате:
 		# ширина, высота, x и y позиция
-		width = 20
-		height = 20
+		width = 50
+		height = 50
 		level = [
 			[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 			[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -56,7 +56,7 @@ class Level_01(Level):
 			for x in range(15):
 				if level[y][x]:
 					block = Wall(width, height)
-					block.rect.x = x*50
-					block.rect.y = y*50
+					block.rect.x = x*width
+					block.rect.y = y*height
 					block.player = self.player
 					self.platform_list.add(block)
