@@ -1,13 +1,13 @@
-# Bobmerman game (pygame project)
+# Bomberman game (pygame project)
 
 
 
 ### Setup env
-'''
-pip install -r requirements.txt
-'''
+
+`pip install -r requirements.txt`
+
 
 ### Run game
-'''
-python main.py
-'''
+
+`python main.py`
+
