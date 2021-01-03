@@ -6,7 +6,7 @@ class BaseHero(pygame.sprite.Sprite):
 		super().__init__()
 		self.width = 30
 		self.height = 30
-		self.image = pygame.image.load('img\player.png')
+		self.image = pygame.image.load(r'img\player.png')
 		self.rect = self.image.get_rect()
 		self.rect.x = x
 		self.rect.y = y
@@ -34,9 +34,9 @@ class BaseHero(pygame.sprite.Sprite):
 class Player(BaseHero):
 	def __init__(self, x, y):
 		super().__init__(x, y)
-		self.image = pygame.image.load('img\player.png')
+		self.image = pygame.image.load(r'img\player.png')
 
 class Enemy(BaseHero):
 	def __init__(self, x, y):
 		super().__init__(x, y)
-		self.image = pygame.image.load('img\enemy.png')
+		self.image = pygame.image.load(r'img\enemy.png')

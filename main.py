@@ -1,56 +1,44 @@
 import pygame
 
-from bomberman.BaseHero import Player, Enemy, BaseHero
+from bomberman.BaseHero import Player, Enemy
 from bomberman.Level import Level
 
+# >>> Settings
 SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 750
+DEBUG = True
+FPS = 60
+WHITE = (255, 255, 255)
+# <<< Settings
+
 WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Game")
-
-# Background
-# BG = pygame.transform.scale(pygame.image.load('img/background.png'), (SCREEN_WIDTH, SCREEN_HEIGHT))
-
-clock = pygame.time.Clock()
 
 
 def main():
 	pygame.init()
-
-	FPS = 60
-	run = True
-
-	player_vel = 4
-
+	clock = pygame.time.Clock()
 
 	player = Player(50, 300)
 	enemy = Enemy(50,400)
 
-
 	blocks_group = pygame.sprite.Group()
 	lvl = Level()
-	blocks_group.add(lvl.getGroup())
-	# print(lvl.getGroup())
-	WHITE = (255, 255, 255)
+	blocks_group.add(lvl.get_group())
+
 	surf_left = pygame.Surface(
 		(SCREEN_WIDTH, SCREEN_WIDTH))
 	surf_left.fill(WHITE)
-	# WIN.blit(surf_left, (0, 0))
 
-
-	# lvl.getGroup().draw(WIN)
 	WIN.blit(surf_left, (0, 0))
 	blocks_group.draw(WIN)
 
 	def redraw_window():
 		# WIN.fill(0)
-
-
 		player.draw(WIN)
 		enemy.draw(WIN)
 
-
-
+	run = True
 	while run:
 		clock.tick(FPS)
 		redraw_window()
@@ -60,22 +48,20 @@ def main():
 				print("Exit")
 				run = False
 
-		collide = pygame.sprite.spritecollide(player, lvl.getGroup(), False)
+		collide = pygame.sprite.spritecollide(player, blocks_group, False)
 		if collide:
-			for s in collide:
-				pygame.draw.rect(WIN, (255, 111, 4), (s.rect.x, s.rect.y, 50, 50), 8)
-
-
-
+			if DEBUG:
+				for s in collide:
+					pygame.draw.rect(WIN, (255, 111, 4), (s.rect.x, s.rect.y, 50, 50), 8)
 
 		keys = pygame.key.get_pressed()
-		if keys[pygame.K_a] and player.rect.x - player_vel > 0: # left
+		if keys[pygame.K_a] and player.rect.x - player.speed > 0:  # left
 			player.move_left()
-		if keys[pygame.K_d] and player.rect.x + player_vel + 50 < SCREEN_WIDTH: # right
+		if keys[pygame.K_d] and player.rect.x + player.speed + 50 < SCREEN_WIDTH:  # right
 			player.move_right()
-		if keys[pygame.K_w] and player.rect.y - player_vel > 0: # up
+		if keys[pygame.K_w] and player.rect.y - player.speed > 0:  # up
 			player.move_up()
-		if keys[pygame.K_s] and player.rect.y + player_vel + 50 < SCREEN_HEIGHT: # down
+		if keys[pygame.K_s] and player.rect.y + player.speed + 50 < SCREEN_HEIGHT:  # down
 			player.move_down()
 		pygame.display.update()
 
