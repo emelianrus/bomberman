@@ -20,19 +20,25 @@ class BaseHero(pygame.sprite.Sprite):
 		# pygame.draw.rect(window, (222, 1, 141), (self.rect.x , self.rect.y, self.width, self.height), 4)
 
 	def move_left(self):
-		self.rect.x -= self.speed
+		if self.rect.x - self.speed > 0:
+			self.rect.x -= self.speed
 
-	def move_right(self):
-		self.rect.x += self.speed
+	def move_right(self, screen_width):
+		if self.rect.x + self.speed + 50 < screen_width:
+			self.rect.x += self.speed
 
 	def move_up(self):
-		self.rect.y -= self.speed
+		if self.rect.y - self.speed > 0:
+			self.rect.y -= self.speed
 
-	def move_down(self):
-		self.rect.y += self.speed
+	def move_down(self, screen_height):
+		if self.rect.y + self.speed + 50 < screen_height:
+			self.rect.y += self.speed
 
 	def put_bomb(self):
 		pass
+
+
 
 class Player(BaseHero):
 	def __init__(self, x, y):
