@@ -14,6 +14,10 @@ WHITE = (255, 255, 255)
 WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Game")
 
+surf_left = pygame.Surface(
+		(SCREEN_WIDTH, SCREEN_WIDTH))
+surf_left.fill(WHITE)
+
 
 def main():
 	pygame.init()
@@ -22,19 +26,25 @@ def main():
 	player = Player(50, 300)
 	enemy = Enemy(50,400)
 
-	blocks_group = pygame.sprite.Group()
+	persist_group = pygame.sprite.Group()
+	dynamic_blocks_group = pygame.sprite.Group()
+	collided_group = pygame.sprite.Group()
+
 	lvl = Level()
-	blocks_group.add(lvl.get_group())
 
-	surf_left = pygame.Surface(
-		(SCREEN_WIDTH, SCREEN_WIDTH))
-	surf_left.fill(WHITE)
+	persist_group.add(lvl.get_persist_group())
+	dynamic_blocks_group.add(lvl.get_dynamic_group())
 
-	WIN.blit(surf_left, (0, 0))
-	blocks_group.draw(WIN)
+	collided_group.add([persist_group, dynamic_blocks_group])
+
+
+	# one time draw
+	# WIN.blit(surf_left, (0, 0))  # Background
+	persist_group.draw(WIN)
 
 	def redraw_window():
 		# WIN.fill(0)
+		dynamic_blocks_group.draw(WIN)
 		player.draw(WIN)
 		enemy.draw(WIN)
 
@@ -48,7 +58,7 @@ def main():
 				print("Exit")
 				run = False
 
-		collide = pygame.sprite.spritecollide(player, blocks_group, False)
+		collide = pygame.sprite.spritecollide(player, collided_group, False)
 		if collide:
 			if DEBUG:
 				for s in collide:

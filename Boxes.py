@@ -30,10 +30,20 @@ class Wall(BaseWall):
         self.id = 1
         self.hp = 999
 
+
+class Floor(BaseWall):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.id = 1
+        self.hp = 999
+        self.image = pygame.transform.scale(pygame.image.load(r'img\ground_grass.png'), (self.width, self.height))
+
+
 # TODO: Not sure Bomb class should be here and it should implements BaseWall?
-# class Bomb(BaseWall):
-#     def __init__(self,x, y):
-#         self.react.x = x
-#         self.react.y = y
-#         self.power = 3  # will explode near 3 cells
+class Bomb(BaseWall):
+    def __init__(self,x, y):
+        super().__init__(x, y)
+        self.id = 4
+        self.hp = 1
+        self.image = pygame.transform.scale(pygame.image.load(r'img\bomb.png'), (self.width, self.height))
 

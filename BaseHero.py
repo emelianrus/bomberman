@@ -31,6 +31,9 @@ class BaseHero(pygame.sprite.Sprite):
 	def move_down(self):
 		self.rect.y += self.speed
 
+	def put_bomb(self):
+		pass
+
 class Player(BaseHero):
 	def __init__(self, x, y):
 		super().__init__(x, y)
