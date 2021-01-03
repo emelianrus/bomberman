@@ -49,6 +49,17 @@ class Player(BaseHero):
 		super().__init__(x, y)
 		self.image = pygame.image.load(r'img\player.png')
 
+	def movement(self, keys):
+		if keys[pygame.K_a]:
+			self.move_left()
+		if keys[pygame.K_d]:
+			self.move_right(750)  # SCREEN_WIDTH
+		if keys[pygame.K_w]:
+			self.move_up()
+		if keys[pygame.K_s]:
+			self.move_down(750)  # SCREEN_HEIGHT
+
+
 class Enemy(BaseHero):
 	def __init__(self, x, y):
 		super().__init__(x, y)

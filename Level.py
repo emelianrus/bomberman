@@ -22,15 +22,6 @@ class Level:
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 	]
 
-	# walls - one time draw
-	# blocks - redraw
-	# bombs - redraw
-
-	# 0 - floor
-	# 1 - wall
-	# 2 - box
-	# 4 - bomb
-
 	persist_group = pygame.sprite.Group()  # shouldn't be updated
 	dynamic_blocks_group = pygame.sprite.Group()  # should be updated
 	floor_blocks_group = pygame.sprite.Group()  # should be updated
@@ -56,6 +47,7 @@ class Level:
 					self.dynamic_blocks_group.add(bomb)
 
 	def get_persist_group(self):
+		print(self.persist_group)
 		return self.persist_group
 
 	def get_dynamic_group(self):
@@ -63,6 +55,6 @@ class Level:
 
 	def get_floor_blocks_group(self):
 		return self.floor_blocks_group
-	# def draw(self, window):
-	# 	self.box_group.draw(window)
 
+	def redraw_window(self):
+		pass
