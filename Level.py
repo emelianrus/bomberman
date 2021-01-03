@@ -26,6 +26,11 @@ class Level:
 	# blocks - redraw
 	# bombs - redraw
 
+	# 0 - floor
+	# 1 - wall
+	# 2 - box
+	# 4 - bomb
+
 	persist_group = pygame.sprite.Group()  # shouldn't be updated
 	dynamic_blocks_group = pygame.sprite.Group()  # should be updated
 
