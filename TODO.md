@@ -1,5 +1,7 @@
 TODO:
 
+BUGS:
+  - Redraw only player and enemy
 
 Map:
   + Draw map

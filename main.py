@@ -1,103 +1,85 @@
 import pygame
-from Player import Player
-from Level import Level_01
-# Переменные для установки ширины и высоты окна
+
+from bomberman.BaseHero import Player, Enemy, BaseHero
+from bomberman.Level import Level
+
 SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 750
+WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Game")
 
-bg = pygame.image.load('img/background.png')
+# Background
+# BG = pygame.transform.scale(pygame.image.load('img/background.png'), (SCREEN_WIDTH, SCREEN_HEIGHT))
 
-# Основная функция прогарммы
+clock = pygame.time.Clock()
+
+
 def main():
-	# Инициализация
 	pygame.init()
 
-	# Установка высоты и ширины
-	size = [SCREEN_WIDTH, SCREEN_HEIGHT]
-	screen = pygame.display.set_mode(size)
+	FPS = 60
+	run = True
 
-	# Название игры
-	pygame.display.set_caption("Game")
+	player_vel = 4
 
-	# Создаем игрока
-	player = Player()
 
-	# Создаем все уровни
-	level_list = []
-	level_list.append(Level_01(player))
+	player = Player(50, 300)
+	enemy = Enemy(50,400)
 
-	# Устанавливаем текущий уровень
-	current_level_no = 0
-	current_level = level_list[current_level_no]
 
-	active_sprite_list = pygame.sprite.Group()
-	player.level = current_level
+	blocks_group = pygame.sprite.Group()
+	lvl = Level()
+	blocks_group.add(lvl.getGroup())
+	# print(lvl.getGroup())
+	WHITE = (255, 255, 255)
+	surf_left = pygame.Surface(
+		(SCREEN_WIDTH, SCREEN_WIDTH))
+	surf_left.fill(WHITE)
+	# WIN.blit(surf_left, (0, 0))
 
-	player.rect.x = 340
-	player.rect.y = SCREEN_HEIGHT - player.rect.height
-	active_sprite_list.add(player)
 
-	# Цикл будет до тех пор, пока пользователь не нажмет кнопку закрытия
-	done = False
+	# lvl.getGroup().draw(WIN)
+	WIN.blit(surf_left, (0, 0))
+	blocks_group.draw(WIN)
 
-	# Используется для управления скоростью обновления экрана
-	clock = pygame.time.Clock()
+	def redraw_window():
+		# WIN.fill(0)
 
-	# Основной цикл программы
-	while not done:
-		# Отслеживание действий
+
+		player.draw(WIN)
+		enemy.draw(WIN)
+
+
+
+	while run:
+		clock.tick(FPS)
+		redraw_window()
+
 		for event in pygame.event.get():
-			if event.type == pygame.QUIT: # Если закрыл программу, то останавливаем цикл
-				done = True
+			if event.type == pygame.QUIT:
+				print("Exit")
+				run = False
 
-			# Если нажали на стрелки клавиатуры, то двигаем объект
-			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_LEFT:
-					player.go_left()
-					x = 0
-				if event.key == pygame.K_RIGHT:
-					player.go_right()
-				if event.key == pygame.K_UP:
-					player.go_up()
-					break
-				if event.key == pygame.K_DOWN:
-					player.go_down()
+		collide = pygame.sprite.spritecollide(player, lvl.getGroup(), False)
+		if collide:
+			for s in collide:
+				pygame.draw.rect(WIN, (255, 111, 4), (s.rect.x, s.rect.y, 50, 50), 8)
 
-			if event.type == pygame.KEYUP:
-				player.stop()
 
-		# Обновляем игрока
-		active_sprite_list.update()
 
-		# Обновляем объекты на сцене
-		current_level.update()
 
-		# Если игрок приблизится к правой стороне, то дальше его не двигаем
-		if player.rect.right > SCREEN_WIDTH:
-			player.rect.right = SCREEN_WIDTH
+		keys = pygame.key.get_pressed()
+		if keys[pygame.K_a] and player.rect.x - player_vel > 0: # left
+			player.move_left()
+		if keys[pygame.K_d] and player.rect.x + player_vel + 50 < SCREEN_WIDTH: # right
+			player.move_right()
+		if keys[pygame.K_w] and player.rect.y - player_vel > 0: # up
+			player.move_up()
+		if keys[pygame.K_s] and player.rect.y + player_vel + 50 < SCREEN_HEIGHT: # down
+			player.move_down()
+		pygame.display.update()
 
-		# Если игрок приблизится к левой стороне, то дальше его не двигаем
-		if player.rect.left < 0:
-			player.rect.left = 0
-
-		if player.rect.top < 0:
-			player.rect.top = 0
-
-		# Если игрок приблизится к левой стороне, то дальше его не двигаем
-		if player.rect.bottom > SCREEN_HEIGHT:
-			player.rect.bottom = SCREEN_HEIGHT
-
-		# Рисуем объекты на окне
-		current_level.draw(screen)
-		active_sprite_list.draw(screen)
-
-		# Устанавливаем количество фреймов
-		clock.tick(80)
-
-		# Обновляем экран после рисования объектов
-		pygame.display.flip()
-
-	# Корректное закртытие программы
 	pygame.quit()
+
 
 main()
