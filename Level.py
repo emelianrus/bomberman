@@ -33,6 +33,7 @@ class Level:
 
 	persist_group = pygame.sprite.Group()  # shouldn't be updated
 	dynamic_blocks_group = pygame.sprite.Group()  # should be updated
+	floor_blocks_group = pygame.sprite.Group()  # should be updated
 
 	def __init__(self):
 		for i in range(len(self.level)):
@@ -40,7 +41,7 @@ class Level:
 				if self.level[i][j] == 0:
 					floor = Floor(i, j)
 					self.level[i][j] = Floor(i, j)
-					self.dynamic_blocks_group.add(floor)
+					self.floor_blocks_group.add(floor)
 				if self.level[i][j] == 1:
 					wall = Wall(i, j)
 					self.level[i][j] = Wall(i, j)
@@ -60,6 +61,8 @@ class Level:
 	def get_dynamic_group(self):
 		return self.dynamic_blocks_group
 
+	def get_floor_blocks_group(self):
+		return self.floor_blocks_group
 	# def draw(self, window):
 	# 	self.box_group.draw(window)
 

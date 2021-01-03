@@ -3,11 +3,12 @@ import pygame
 from bomberman.BaseHero import Player, Enemy
 from bomberman.Level import Level
 
+DEBUG = True
 # >>> Settings
+FPS = 60
 SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 750
-DEBUG = True
-FPS = 60
+
 WHITE = (255, 255, 255)
 # <<< Settings
 
@@ -26,9 +27,22 @@ def main():
     player = Player(50, 300)
     enemy = Enemy(50, 400)
 
+    # TODO: decide what way to choose
+    # flor dynamic
+    # person dynamic
+    # wall persist collided
+    # bomb dynamic collided
+    # boxes dynamic collided
+
+    # dynamic - update per frame
+    # persist - update once
+    # collided
+
     persist_group = pygame.sprite.Group()
     dynamic_blocks_group = pygame.sprite.Group()
     collided_group = pygame.sprite.Group()
+
+
 
     lvl = Level()
 
@@ -38,11 +52,9 @@ def main():
     collided_group.add([persist_group, dynamic_blocks_group])
 
     # one time draw
-    # WIN.blit(surf_left, (0, 0))  # Background
     persist_group.draw(WIN)
 
     def redraw_window():
-        # WIN.fill(0)
         dynamic_blocks_group.draw(WIN)
         player.draw(WIN)
         enemy.draw(WIN)
