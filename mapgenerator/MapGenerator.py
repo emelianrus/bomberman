@@ -1,3 +1,7 @@
+# TODO:
+# do not spawn boxes near user and enemy. should be able to put bomb and not die
+
+
 import pprint
 import random
 
