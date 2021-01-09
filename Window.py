@@ -1,7 +1,6 @@
 import player
 import pygame
 
-from bomberman.BaseHero import Player
 from bomberman.Level import Level
 
 
@@ -18,7 +17,6 @@ class Window:
         self.collided_group = pygame.sprite.Group()
 
         self.LEVEL = Level()
-        # self.PLAYER = Player()
 
     def get_window(self):
         return self.WIN
@@ -35,7 +33,7 @@ class Window:
     def draw_dynamic_objects(self):
         self.LEVEL.get_dynamic_group().draw(self.WIN)
 
-    def collide(self ):
+    def collide(self):
         collide = pygame.sprite.spritecollide(player, self.collided_group, False)
         if collide:
             for s in collide:
@@ -50,3 +48,5 @@ class Window:
     def draw_player(self, player_instance):
         self.WIN.blit(pygame.transform.scale(player_instance.image, (player_instance.width, player_instance.height)),
                       (player_instance.rect.x, player_instance.rect.y))
+        # debug player rect
+        # pygame.draw.rect(window, (222, 1, 141), (self.rect.x , self.rect.y, self.width, self.height), 4)

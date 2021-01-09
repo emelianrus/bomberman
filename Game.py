@@ -1,9 +1,6 @@
-import os
-
 import pygame
 
 from bomberman.BaseHero import Player
-from bomberman.Level import Level
 from bomberman.Window import Window
 
 
@@ -29,7 +26,6 @@ class Game:
             self.WIN.draw_dynamic_objects()
 
             player.movement(pygame.key.get_pressed())
-            # player.draw(self.WIN)
             self.WIN.draw_player(player)
 
             # self.WIN.collide()

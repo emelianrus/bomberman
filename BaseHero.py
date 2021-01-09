@@ -16,11 +16,6 @@ class BaseHero(pygame.sprite.Sprite):
 
 	def draw(self, window):
 		window.blit(pygame.transform.scale(self.image, (self.width, self.height)), (self.rect.x , self.rect.y))
-		# debug player rect
-		# pygame.draw.rect(window, (222, 1, 141), (self.rect.x , self.rect.y, self.width, self.height), 4)
-
-	# def __can_move(self):
-	# 	return True
 
 	def move_left(self):
 		if self.rect.x - self.speed > 0:
@@ -41,8 +36,6 @@ class BaseHero(pygame.sprite.Sprite):
 	def put_bomb(self):
 		pass
 
-	# if can_move:
-	# 	move.left()
 
 class Player(BaseHero):
 	def __init__(self, x, y):
@@ -58,6 +51,9 @@ class Player(BaseHero):
 			self.move_up()
 		if keys[pygame.K_s]:
 			self.move_down(750)  # SCREEN_HEIGHT
+
+	def put_bomb(self):
+		pass
 
 
 class Enemy(BaseHero):
