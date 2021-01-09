@@ -2,7 +2,7 @@
 import random
 
 
-class Level:
+class MapGenerator:
     level = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1],
@@ -58,7 +58,7 @@ class Level:
         magic_random_number = 3
         for i in range(len(lists_round_boxes)):
             if random_list[i] > magic_random_number:
-                self.level[lists_round_boxes[i]['i']][lists_round_boxes[i]['j']] = 4
+                self.level[lists_round_boxes[i]['i']][lists_round_boxes[i]['j']] = 2
 
     def generate_pillars(self):
         for i in range(len(self.level)):

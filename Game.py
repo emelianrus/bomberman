@@ -3,6 +3,7 @@ import os
 import pygame
 
 from bomberman.BaseHero import Player
+from bomberman.Level import Level
 from bomberman.Window import Window
 
 
@@ -20,19 +21,18 @@ class Game:
     def start(self):
 
         player = Player(50, 300)
-        level = Level(Level_01)
-
-        level.draw(self.WIN)
 
         self.WIN.draw_static_objects()
+
         while self.RUN:
             self.clock.tick(self.FPS)
             self.WIN.draw_dynamic_objects()
 
             player.movement(pygame.key.get_pressed())
-            player.draw(self.WIN)
+            # player.draw(self.WIN)
+            self.WIN.draw_player(player)
 
-            self.WIN.collide()
+            # self.WIN.collide()
 
             pygame.display.update()
             for event in pygame.event.get():
