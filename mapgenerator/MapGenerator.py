@@ -1,5 +1,4 @@
-# TODO:
-# do not spawn boxes near user and enemy. should be able to put bomb and not die
+
 import random
 
 
@@ -22,10 +21,10 @@ class Level:
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     ]
 
-
     def __init__(self):
         self.generate_pillars()
 
+    # TODO: do not spawn boxes near user and enemy. should be able to put bomb and not die
     def generate_boxes(self, p_i, p_j):
         # get cells round the pillar
         lists_round_boxes = [{
