@@ -1,5 +1,7 @@
 import pygame
 
+from bomberman.Boxes import Bomb
+
 
 class BaseHero(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -15,7 +17,8 @@ class BaseHero(pygame.sprite.Sprite):
         self.speed = 4
 
     def draw(self, window):
-        window.blit(pygame.transform.scale(self.image, (self.width, self.height)), (self.rect.x, self.rect.y))
+        window.blit(pygame.transform.scale(self.image, (self.width, self.height)),
+                    (self.rect.x, self.rect.y))
 
     # debug player rect
     # pygame.draw.rect(window, (222, 1, 141), (self.rect.x , self.rect.y, self.width, self.height), 4)
@@ -40,9 +43,9 @@ class BaseHero(pygame.sprite.Sprite):
 class Player(BaseHero):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.bombs = []
         self.max_bomb = 1
-        self.current_bobms = 0
+        self.current_bombs = 0
+        self.LEVEL = None
         self.image = pygame.image.load(r'img\player.png')
 
     def movement(self, keys, collided_group):
@@ -72,8 +75,9 @@ class Player(BaseHero):
                 self.rect.y -= 12
             else:
                 self.move_down(750)  # SCREEN_HEIGHT
-
-
+        if keys[pygame.K_SPACE]:
+            # TODO: add more than 1 copies while pressing button
+            self.LEVEL.add_bomb_to_group(Bomb(int(self.rect.x/50), int(self.rect.y/50)))
 
 class Enemy(BaseHero):
     def __init__(self, x, y):

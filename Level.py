@@ -10,6 +10,7 @@ class Level:
 		self.persist_group = pygame.sprite.Group()  # shouldn't be updated
 		self.dynamic_blocks_group = pygame.sprite.Group()  # should be updated
 		self.floor_blocks_group = pygame.sprite.Group()  # should be updated
+		self.bombs_group = pygame.sprite.Group()  # should be updated
 
 		self.level = MapGenerator().get_map()
 		self.generate_lvl()
@@ -25,10 +26,16 @@ class Level:
 				if self.level[i][j] == 2:
 					self.dynamic_blocks_group.add(Box(i, j))
 				if self.level[i][j] == 4:
-					self.dynamic_blocks_group.add(Bomb(i, j))
+					self.dynamic_blocks_group.add(Bomb(44, 55))
 
 	def get_persist_group(self):
 		return self.persist_group
+
+	def get_bomb_group(self):
+		return self.bombs_group
+
+	def add_bomb_to_group(self, bomb_obj):
+		self.bombs_group.add(bomb_obj)
 
 	def get_dynamic_group(self):
 		return self.dynamic_blocks_group

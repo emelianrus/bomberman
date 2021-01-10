@@ -41,8 +41,8 @@ class Floor(BaseWall):
 
 # TODO: Not sure Bomb class should be here and it should implements BaseWall?
 class Bomb(BaseWall):
-    def __init__(self,x, y):
-        super().__init__(x, y)
+    def __init__(self, x, y):
+        BaseWall.__init__(self, x, y)
         self.id = 4
         self.hp = 1
         self.image = pygame.transform.scale(pygame.image.load(r'img\bomb.png'), (self.width, self.height))
