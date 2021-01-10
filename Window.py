@@ -19,19 +19,22 @@ class Window:
         self.PLAYER = Player(50, 300)
         self.LEVEL = Level()
 
-    def game_loop(self,FPS):
+    def game_loop(self, FPS):
         clock = pygame.time.Clock()
         self.draw_static_objects()
+
+        self.collided_group.add([self.persist_group, self.LEVEL.get_dynamic_group()])
+        print(self.collided_group)
+
         RUN = True
         while RUN:
             clock.tick(FPS)
             self.draw_dynamic_objects()
 
             self.PLAYER.movement(pygame.key.get_pressed())
-            # player.draw(self.WIN)
             self.draw_player()
 
-            # self.WIN.collide()
+            self.collide()
 
             pygame.display.update()
             for event in pygame.event.get():
@@ -54,7 +57,7 @@ class Window:
         self.LEVEL.get_dynamic_group().draw(self.WIN)
 
     def collide(self):
-        collide = pygame.sprite.spritecollide(player, self.collided_group, False)
+        collide = pygame.sprite.spritecollide(self.PLAYER, self.collided_group, False)
         if collide:
             for s in collide:
                 pygame.draw.rect(self.WIN, (255, 111, 4), (s.rect.x, s.rect.y, 50, 50), 8)
