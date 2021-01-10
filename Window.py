@@ -16,9 +16,27 @@ class Window:
         self.persist_group = pygame.sprite.Group()
         self.dynamic_blocks_group = pygame.sprite.Group()
         self.collided_group = pygame.sprite.Group()
-
+        self.PLAYER = Player(50, 300)
         self.LEVEL = Level()
-        # self.PLAYER = Player()
+
+    def game_loop(self,FPS):
+        clock = pygame.time.Clock()
+        self.draw_static_objects()
+        RUN = True
+        while RUN:
+            clock.tick(FPS)
+            self.draw_dynamic_objects()
+
+            self.PLAYER.movement(pygame.key.get_pressed())
+            # player.draw(self.WIN)
+            self.draw_player()
+
+            # self.WIN.collide()
+
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return
 
     def get_window(self):
         return self.WIN
@@ -35,7 +53,7 @@ class Window:
     def draw_dynamic_objects(self):
         self.LEVEL.get_dynamic_group().draw(self.WIN)
 
-    def collide(self ):
+    def collide(self):
         collide = pygame.sprite.spritecollide(player, self.collided_group, False)
         if collide:
             for s in collide:
@@ -47,6 +65,6 @@ class Window:
     #     self.player.draw(self.WIN)
     #     self.enemy.draw(self.WIN)
     #     pygame.display.update()
-    def draw_player(self, player_instance):
-        self.WIN.blit(pygame.transform.scale(player_instance.image, (player_instance.width, player_instance.height)),
-                      (player_instance.rect.x, player_instance.rect.y))
+    def draw_player(self):
+        self.WIN.blit(pygame.transform.scale(self.PLAYER.image, (self.PLAYER.width, self.PLAYER.height)),
+                      (self.PLAYER.rect.x, self.PLAYER.rect.y))
