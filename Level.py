@@ -17,6 +17,7 @@ class Level:
 	def generate_lvl(self):
 		for i in range(len(self.level)):
 			for j in range(len(self.level)):
+				# TODO: https://www.pygame.org/docs/ref/rect.html#pygame.Rect.copy
 				if self.level[i][j] == 0:
 					self.floor_blocks_group.add(Floor(i, j))
 				if self.level[i][j] == 1:
@@ -27,7 +28,6 @@ class Level:
 					self.dynamic_blocks_group.add(Bomb(i, j))
 
 	def get_persist_group(self):
-		print(self.persist_group)
 		return self.persist_group
 
 	def get_dynamic_group(self):
