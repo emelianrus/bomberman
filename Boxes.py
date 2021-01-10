@@ -46,6 +46,6 @@ class Bomb(BaseWall):
         self.id = 4
         self.hp = 1
         self.image = pygame.transform.scale(pygame.image.load(r'img\bomb.png'), (self.width, self.height))
-
+    # TODO: https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Sprite.remove
     def tick(self):
         pass

@@ -25,8 +25,8 @@ class Level:
 					self.persist_group.add(Wall(i, j))
 				if self.level[i][j] == 2:
 					self.dynamic_blocks_group.add(Box(i, j))
-				if self.level[i][j] == 4:
-					self.dynamic_blocks_group.add(Bomb(44, 55))
+				# if self.level[i][j] == 4:
+				# 	self.dynamic_blocks_group.add(Bomb(44, 55))
 
 	def get_persist_group(self):
 		return self.persist_group

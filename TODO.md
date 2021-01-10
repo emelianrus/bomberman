@@ -44,28 +44,7 @@ bomb:
 
 --------------------------------------------
 Bugs:
-- do not redraw walls
 - player movement between blocks not smooth
-
-
-
-
-
-
-
-Game class
-Window class
-Player class
-Level class 
-
-
-if SPACE:
-  position = get Player position
-  bomb_group.add(Bomb(position))
-
-game_loop:
-  bomb_group.draw(WIN)
-
 
 
 

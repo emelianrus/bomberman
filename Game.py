@@ -1,7 +1,6 @@
 import pygame
 
 from bomberman.BaseHero import Player
-from bomberman.Boxes import Bomb
 from bomberman.Config import Config
 from bomberman.Level import Level
 from bomberman.Window import Window
@@ -26,7 +25,7 @@ class Game:
 
         self.WIN.collided_group.add([level.get_persist_group(), level.get_dynamic_group()])
         RUN = True
-        # print(float(3.44)))
+
         while RUN:
             clock.tick(self.config.FPS)
             self.WIN.draw_flor_objects()
