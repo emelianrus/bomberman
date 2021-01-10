@@ -3,6 +3,7 @@ import random
 
 
 class MapGenerator:
+    # TODO: refactor this array
     level = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1],
@@ -22,6 +23,8 @@ class MapGenerator:
     ]
 
     def __init__(self):
+        self.enable_box_generation = False
+
         self.generate_pillars()
 
     # TODO: do not spawn boxes near user and enemy. should be able to put bomb and not die
@@ -71,7 +74,8 @@ class MapGenerator:
                     if 0 < j < len(self.level) - 1:
                         if i % 2 == 0 and j % 2 == 0:
                             self.level[i][j] = 1
-                            self.generate_boxes(i, j)
+                            if self.enable_box_generation:
+                                self.generate_boxes(i, j)
 
     def get_map(self):
         return self.level

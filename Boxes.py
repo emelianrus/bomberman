@@ -47,3 +47,5 @@ class Bomb(BaseWall):
         self.hp = 1
         self.image = pygame.transform.scale(pygame.image.load(r'img\bomb.png'), (self.width, self.height))
 
+    def tick(self):
+        pass
