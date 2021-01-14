@@ -17,6 +17,8 @@ class BaseHero(pygame.sprite.Sprite):
         self.speed = 4
 
     def draw(self, window):
+        self.remove()
+        self.kill()
         window.blit(pygame.transform.scale(self.image, (self.width, self.height)),
                     (self.rect.x, self.rect.y))
 

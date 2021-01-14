@@ -28,10 +28,11 @@ class Game:
 
         while RUN:
             clock.tick(self.config.FPS)
+            self.WIN.draw_timer()
             self.WIN.draw_flor_objects()
             self.WIN.draw_dynamic_objects()
 
-            player.draw(self.WIN.WIN)
+            player.draw(self.WIN.get_window())
             self.WIN.draw_bombs_objects()
             player.movement(pygame.key.get_pressed(), self.WIN.collided_group)
 

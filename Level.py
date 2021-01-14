@@ -32,6 +32,7 @@ class Level:
 		return self.persist_group
 
 	def get_bomb_group(self):
+
 		return self.bombs_group
 
 	def add_bomb_to_group(self, bomb_obj):

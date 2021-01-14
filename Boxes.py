@@ -15,6 +15,9 @@ class BaseWall(pygame.sprite.Sprite):
         self.rect.y = y * self.height
         self.hp: int
 
+    def update(self):
+        pass
+
 
 class Box(BaseWall):
     def __init__(self, x, y):
@@ -39,13 +42,29 @@ class Floor(BaseWall):
         self.image = pygame.transform.scale(pygame.image.load(r'img\ground_grass.png'), (self.width, self.height))
 
 
+class Explode(BaseWall):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.id = 1
+        self.hp = 999
+        self.image = pygame.transform.scale(pygame.image.load(r'img\explosion_a.png'), (self.width, self.height))
+
+
 # TODO: Not sure Bomb class should be here and it should implements BaseWall?
 class Bomb(BaseWall):
     def __init__(self, x, y):
         BaseWall.__init__(self, x, y)
         self.id = 4
         self.hp = 1
+        self.create_time_seconds = int(((int(pygame.time.get_ticks()) / 1000) % 60))
         self.image = pygame.transform.scale(pygame.image.load(r'img\bomb.png'), (self.width, self.height))
+
     # TODO: https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Sprite.remove
     def tick(self):
         pass
+
+    def update(self):
+        
+
+    def activate(self):
+        print("BOOOOMMMM")
