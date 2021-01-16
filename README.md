@@ -4,10 +4,12 @@
 
 ### Setup env
 
+python: `python3.8`
+
 `pip install -r requirements.txt`
 
 
 ### Run game
 
-`python main.py`
+`python game/Game.py`
 
