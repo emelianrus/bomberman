@@ -71,7 +71,6 @@ class Bomb(BaseWall):
         pass
 
     def update(self, explode_group):
-        print(explode_group)
         if int(((int(pygame.time.get_ticks()) / 1000) % 60)) - self.life_time_sec >= self.create_time_sec:
             self.activate(explode_group)
             self.kill()
