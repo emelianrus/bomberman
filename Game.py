@@ -33,7 +33,13 @@ class Game:
             self.WIN.draw_dynamic_objects()
 
             player.draw(self.WIN.get_window())
+
+            self.WIN.LEVEL.bombs_group.update(self.WIN.LEVEL.get_explode_group())
+            self.WIN.LEVEL.explode_group.update()
+
             self.WIN.draw_bombs_objects()
+            self.WIN.draw_explode_objects()
+
             player.movement(pygame.key.get_pressed(), self.WIN.collided_group)
 
             # self.WIN.collide()

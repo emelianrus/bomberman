@@ -27,6 +27,9 @@ class Window:
     def draw_bombs_objects(self):
         self.LEVEL.get_bomb_group().draw(self.WIN)
 
+    def draw_explode_objects(self):
+        self.LEVEL.get_explode_group().draw(self.WIN)
+
     def draw_flor_objects(self):
         self.LEVEL.get_floor_blocks_group().draw(self.WIN)
 
@@ -50,3 +53,4 @@ class Window:
     #     if collide:
     #         for s in collide:
     #             pygame.draw.rect(self.WIN, (255, 111, 4), (s.rect.x, s.rect.y, 50, 50), 8)
+
