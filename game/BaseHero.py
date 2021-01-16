@@ -1,7 +1,7 @@
 import pygame
 
-from bomberman.Boxes import Bomb
-from bomberman.Config import Config
+from game.Boxes import Bomb
+from game.Config import Config
 
 
 class BaseHero(pygame.sprite.Sprite):

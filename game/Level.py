@@ -1,7 +1,7 @@
 import pygame
 
-from bomberman.Boxes import Box, Wall, Bomb, Floor
-from bomberman.mapgenerator.MapGenerator import MapGenerator
+from game.Boxes import Box, Wall, Bomb, Floor
+from game.mapgenerator.MapGenerator import MapGenerator
 
 
 class Level:

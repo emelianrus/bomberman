@@ -1,7 +1,8 @@
 import pygame
 
-from bomberman.Config import Config
-from bomberman.Window import Window
+from game.Window import Window
+
+from game.Config import Config
 
 
 class Game:

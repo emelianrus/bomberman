@@ -1,8 +1,8 @@
 import pygame
 
-from bomberman.BaseHero import Player
-from bomberman.Config import Config
-from bomberman.Level import Level
+from game.BaseHero import Player
+from game.Config import Config
+from game.Level import Level
 
 
 # draw and redraw everything on screen
