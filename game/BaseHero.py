@@ -44,32 +44,44 @@ class Player(BaseHero):
         self.LEVEL = None
         self.image = pygame.image.load(r'img\player.png')
 
-    def movement(self, keys):
+    def movement(self):
         # TODO: change collided logic for player, it should smoothly avoid walls and blocks
         # https://www.pygame.org/docs/ref/event.html
-
-        if keys[pygame.K_a]:
+        if pygame.key.get_pressed()[pygame.K_a]:
             self.move_left()
-        if keys[pygame.K_d]:
+        elif pygame.key.get_pressed()[pygame.K_d]:
             self.move_right(self.config.SCREEN_WIDTH)
-        if keys[pygame.K_w]:
+        elif pygame.key.get_pressed()[pygame.K_w]:
             self.move_up()
-        if keys[pygame.K_s]:
+        elif pygame.key.get_pressed()[pygame.K_s]:
             self.move_down(self.config.SCREEN_HEIGHT)
-        if keys[pygame.K_SPACE]:
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
             # TODO: add more than 1 copies while pressing button
             self.LEVEL.add_bomb_to_group(Bomb(int(self.rect.x / 50), int(self.rect.y / 50)))
 
     def draw(self, win, collided_group):
-        self.movement(pygame.key.get_pressed())
+        self.movement()
         win.blit(pygame.transform.scale(self.image, (self.width, self.height)),
                  (self.rect.x, self.rect.y))
+
+        # draw rect to collided objects
         if self.config.DEBUG:
             pygame.draw.rect(win, (222, 1, 141), (self.rect.x, self.rect.y, self.width, self.height), 4)
+
+        # collide detect
         collide = pygame.sprite.spritecollide(self, collided_group, False)
         if collide:
-            for s in collide:
-                pygame.draw.rect(win, (255, 111, 4), (s.rect.x, s.rect.y, 50, 50), 8)
+            collision_tollerance = 10
+            for i in collide:
+                pygame.draw.rect(win, (255, 111, 4), (i.rect.x, i.rect.y, 50, 50), 8)
+                if abs(i.rect.top - self.rect.bottom) < collision_tollerance:
+                    self.rect.y -= self.speed  # down
+                if abs(i.rect.bottom - self.rect.top) < collision_tollerance:
+                    self.rect.y += self.speed  # up
+                if abs(i.rect.right - self.rect.left) < collision_tollerance:
+                    self.rect.x += self.speed  # left
+                if abs(i.rect.left - self.rect.right) < collision_tollerance:
+                    self.rect.x -= self.speed  # right
 
 
 class Enemy(BaseHero):
