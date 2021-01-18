@@ -46,7 +46,7 @@ bomb:
 Bugs:
 - player movement between blocks not smooth
 - Sometimes explode still left on screen
-
+- During second explode game starts lagging
 
 
 
