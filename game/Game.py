@@ -1,7 +1,6 @@
 import pygame
 
 from game.Window import Window
-
 from game.Config import Config
 
 

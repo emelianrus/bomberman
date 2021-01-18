@@ -33,15 +33,13 @@ class Window:
             self.LEVEL.get_bombs_group().draw(self.WIN)
             self.LEVEL.get_explode_group().draw(self.WIN)
 
-            # i don't like "add" here
+            # TODO: i don't like "add" here
             collided_group.add([self.LEVEL.get_box_group(), self.LEVEL.get_walls_group()])
 
             player.draw(self.WIN, collided_group)
 
             self.LEVEL.bombs_group.update(self.LEVEL.get_explode_group())
             self.LEVEL.explode_group.update()
-
-
 
             self.draw_hud()
 
@@ -65,9 +63,3 @@ class Window:
         hud = font.render("Time: {}     Level: {}     Lives: {}".format(time_in_sec, 1, 1), 1, (255, 255, 255))
 
         self.WIN.blit(hud, (15, 15))
-
-    # def collide(self):
-    #     collide = pygame.sprite.spritecollide(self.PLAYER, self.collided_group, False)
-    #     if collide:
-    #         for s in collide:
-    #             pygame.draw.rect(self.WIN, (255, 111, 4), (s.rect.x, s.rect.y, 50, 50), 8)

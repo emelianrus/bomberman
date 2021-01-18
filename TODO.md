@@ -11,14 +11,14 @@ Game map:
   + Draw enemies
 
 UI: 
-  - Display lives 
-  - Display timer
-  - Display lvl number 
+  + Display lives 
+  + Display timer
+  + Display lvl number 
   
 Player:
   + Draw player
   + Player move
-  - Fix collide 
+  + Fix collide 
   + Put bomb object
 
 Enemy:
@@ -31,7 +31,6 @@ Bonus system:
 
 Level system:
   - Random lvl generation 
-  - Increase difficulty 
   
 Boxes:
   + Explode logic
@@ -46,6 +45,7 @@ bomb:
 --------------------------------------------
 Bugs:
 - player movement between blocks not smooth
+- Sometimes explode still left on screen
 
 
 

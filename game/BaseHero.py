@@ -16,6 +16,7 @@ class BaseHero(pygame.sprite.Sprite):
         self.rect.y = y
         self.rect.width = self.width
         self.rect.height = self.height
+        self.LEVEL = None
         self.speed = 4
 
     def move_left(self):
@@ -41,23 +42,24 @@ class Player(BaseHero):
         self.config = Config()
         self.max_bomb = 1
         self.current_bombs = 0
-        self.LEVEL = None
         self.image = pygame.image.load(r'img\player.png')
 
     def movement(self):
         # TODO: change collided logic for player, it should smoothly avoid walls and blocks
         # https://www.pygame.org/docs/ref/event.html
-        if pygame.key.get_pressed()[pygame.K_a]:
+        pressed_key = pygame.key.get_pressed()
+        if pressed_key[pygame.K_a]:
             self.move_left()
-        elif pygame.key.get_pressed()[pygame.K_d]:
+        elif pressed_key[pygame.K_d]:
             self.move_right(self.config.SCREEN_WIDTH)
-        elif pygame.key.get_pressed()[pygame.K_w]:
+        elif pressed_key[pygame.K_w]:
             self.move_up()
-        elif pygame.key.get_pressed()[pygame.K_s]:
+        elif pressed_key[pygame.K_s]:
             self.move_down(self.config.SCREEN_HEIGHT)
-        if pygame.key.get_pressed()[pygame.K_SPACE]:
-            # TODO: add more than 1 copies while pressing button
-            self.LEVEL.add_bomb_to_group(Bomb(int(self.rect.x / 50), int(self.rect.y / 50)))
+        if pressed_key[pygame.K_SPACE]:
+            # TODO BUG: add more than 1 copies while pressing button
+            self.LEVEL.add_bomb_to_group(int(self.rect.x / 50), int(self.rect.y / 50))
+        # TODO: create explode here?
 
     def draw(self, win, collided_group):
         self.movement()
@@ -68,12 +70,14 @@ class Player(BaseHero):
         if self.config.DEBUG:
             pygame.draw.rect(win, (222, 1, 141), (self.rect.x, self.rect.y, self.width, self.height), 4)
 
+        # TODO: should be in draw method?
         # collide detect
         collide = pygame.sprite.spritecollide(self, collided_group, False)
         if collide:
             collision_tollerance = 10
             for i in collide:
-                pygame.draw.rect(win, (255, 111, 4), (i.rect.x, i.rect.y, 50, 50), 8)
+                if self.config.DEBUG:
+                    pygame.draw.rect(win, (255, 111, 4), (i.rect.x, i.rect.y, 50, 50), 8)
                 if abs(i.rect.top - self.rect.bottom) < collision_tollerance:
                     self.rect.y -= self.speed  # down
                 if abs(i.rect.bottom - self.rect.top) < collision_tollerance:
