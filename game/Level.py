@@ -51,8 +51,6 @@ class Level:
             # self.bombs_group.add(bomb)
             # self.explode_group.add(Explode)
 
-
-
     def add_explode_to_group(self, explode_obj):
         collide = pygame.sprite.spritecollide(explode_obj, self.walls_group, False)
         if not collide:
