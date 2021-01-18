@@ -1,10 +1,12 @@
 import random
 
+from game.Config import Config
+
 
 class MapGenerator:
     def __init__(self):
+        self.config = Config()
         self.size: int = 15
-        self.enable_box_generation = False
         self.level = [[0 for x in range(self.size)] for x in range(self.size)]
 
         self.generate_walls()
@@ -56,7 +58,7 @@ class MapGenerator:
                     if 0 < j < self.size - 1:
                         if i % 2 == 0 and j % 2 == 0:
                             self.level[i][j] = 1
-                            if self.enable_box_generation:
+                            if self.config.ENABLE_BOX_GENERATION:
                                 self.generate_boxes(i, j)
 
     def get_map(self):
