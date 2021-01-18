@@ -1,4 +1,5 @@
 import pygame
+import os
 
 
 class Base(pygame.sprite.Sprite):
@@ -7,7 +8,7 @@ class Base(pygame.sprite.Sprite):
         self.id: int
         self.width = 50
         self.height = 50
-        self.image = pygame.transform.scale(pygame.image.load(r'img\wall.png'), (self.width, self.height))
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join("img", "wall.png")), (self.width, self.height))
         self.rect = self.image.get_rect()
         self.rect.width = self.width
         self.rect.height = self.height
@@ -22,7 +23,7 @@ class Box(Base):
         super().__init__(x, y, group)
         self.id = 2  # unused
         self.hp = 1  # unused
-        self.image = pygame.transform.scale(pygame.image.load(r'img\box.png'), (self.width, self.height))
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join('img', 'box.png')), (self.width, self.height))
 
 
 class Wall(Base):
@@ -37,7 +38,7 @@ class Floor(Base):
         super().__init__(x, y, group)
         self.id = 1  # unused
         self.hp = 999  # unused
-        self.image = pygame.transform.scale(pygame.image.load(r'img\ground_grass.png'), (self.width, self.height))
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join('img', 'ground_grass.png')), (self.width, self.height))
 
 
 class Explode(Base):
@@ -47,12 +48,12 @@ class Explode(Base):
         self.hp = 999  # unused
         self.create_time_sec = int(((int(pygame.time.get_ticks()) / 1000) % 60))
         self.life_time_sec: int = 1
-        self.image = pygame.transform.scale(pygame.image.load(r'img\explosion_a.png'), (self.width, self.height))
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join('img', 'explosion_a.png')), (self.width, self.height))
 
     def update(self):
         # TODO: somewhere here bug with undeleted objects
         if int(((int(pygame.time.get_ticks()) / 1000) % 60)) - 1 >= self.create_time_sec:
-            self.image = pygame.transform.scale(pygame.image.load(r'img\explosion_c.png'), (50, 50))
+            self.image = pygame.transform.scale(pygame.image.load(os.path.join('img', 'explosion_c.png')), (50, 50))
             if int(((int(pygame.time.get_ticks()) / 1000) % 60)) - 2 >= self.create_time_sec:
                 self.kill()
 
@@ -67,7 +68,7 @@ class Bomb(Base):
         self.y = y
         self.life_time_sec = 3  # unused
         self.create_time_sec = int(((int(pygame.time.get_ticks()) / 1000) % 60))
-        self.image = pygame.transform.scale(pygame.image.load(r'img\bomb.png'), (self.width, self.height))
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join('img', 'bomb.png')), (self.width, self.height))
 
     def update(self, explode_group):
         # TODO: somewhere here bug with undeleted objects

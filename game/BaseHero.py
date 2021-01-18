@@ -1,6 +1,6 @@
 import pygame
+import os
 
-from game.Boxes import Bomb
 from game.Config import Config
 
 
@@ -10,7 +10,7 @@ class BaseHero(pygame.sprite.Sprite):
         self.config = Config()
         self.width = 30
         self.height = 30
-        self.image = pygame.image.load(r'img\player.png')
+        self.image = pygame.image.load(os.path.join('img', 'player.png'))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -42,7 +42,7 @@ class Player(BaseHero):
         self.config = Config()
         self.max_bomb = 1
         self.current_bombs = 0
-        self.image = pygame.image.load(r'img\player.png')
+        self.image = pygame.image.load(os.path.join('img', 'player.png'))
 
     def movement(self):
         # TODO: change collided logic for player, it should smoothly avoid walls and blocks
@@ -91,4 +91,4 @@ class Player(BaseHero):
 class Enemy(BaseHero):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.image = pygame.image.load(r'img\enemy.png')
+        self.image = pygame.image.load(os.path.join('img', 'enemy.png'))
