@@ -4,3 +4,4 @@ class Config(object):
     GAME_CAPTION = "Bomberman"
     SCREEN_HEIGHT = 750
     SCREEN_WIDTH = 750
+    ENABLE_BOX_GENERATION = False
