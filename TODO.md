@@ -44,10 +44,12 @@ bomb:
 
 --------------------------------------------
 Bugs:
-- player movement between blocks not smooth
 - Sometimes explode still left on screen
 - During second explode game starts lagging
+- Closing program not working properly (without walls works normally)
 
+Fixed:
+- player movement between blocks not smooth
 
 
 

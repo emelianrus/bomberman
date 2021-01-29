@@ -11,6 +11,7 @@ class Window:
         self.config = Config()
         self.WIN = pygame.display.set_mode((self.config.SCREEN_WIDTH, self.config.SCREEN_HEIGHT))
         pygame.display.set_caption(self.config.GAME_CAPTION)
+        self.RUN = True
 
         self.LEVEL = Level()
 
@@ -23,12 +24,14 @@ class Window:
         clock = pygame.time.Clock()
 
         collided_group = pygame.sprite.Group()
-
-        RUN = True
-        while RUN:
+        self.LEVEL.get_walls_group().draw(self.WIN)
+        while self.RUN:
             clock.tick(self.config.FPS)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.RUN = False
+
             self.LEVEL.get_floor_group().draw(self.WIN)
-            self.LEVEL.get_walls_group().draw(self.WIN)
             self.LEVEL.get_box_group().draw(self.WIN)
             self.LEVEL.get_bombs_group().draw(self.WIN)
             self.LEVEL.get_explode_group().draw(self.WIN)
@@ -38,17 +41,19 @@ class Window:
 
             player.draw(self.WIN, collided_group)
 
-            self.LEVEL.bombs_group.update(self.LEVEL.get_explode_group())
+            self.LEVEL.bombs_group.update()
             self.LEVEL.explode_group.update()
 
             self.draw_hud()
 
             pygame.display.update()
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    return
 
     def draw_hud(self):
+        # Update walls under the HUD
+        for wall in self.LEVEL.get_walls_group():
+            if wall.y == 0:
+                wall.update(self.WIN)
+
         font = pygame.font.SysFont("monospace", 25)
         font.set_bold(True)
         millis = pygame.time.get_ticks()

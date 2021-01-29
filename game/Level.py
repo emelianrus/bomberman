@@ -1,6 +1,6 @@
 import pygame
 
-from game.Boxes import Box, Wall, Bomb, Floor
+from game.Boxes import Box, Wall, Bomb, Floor, Explode
 from game.mapgenerator.MapGenerator import MapGenerator
 
 
@@ -43,15 +43,18 @@ class Level:
     def get_explode_group(self):
         return self.explode_group
 
-    def add_bomb_to_group(self, x, y):
-        collide = pygame.sprite.spritecollide(Bomb(x, y, self.bombs_group), self.walls_group, False)
+    def add_bomb_to_group(self, x, y, power):
+        bomb = Bomb(x, y, self.bombs_group, power, self)
+        collide = pygame.sprite.spritecollide(bomb, self.walls_group, False)
+        if collide:
+            bomb.kill()
         if not collide:
-            bomb = Bomb(x, y, self.bombs_group)
-            # TODO: create explode here?
-            # self.bombs_group.add(bomb)
-            # self.explode_group.add(Explode)
+            self.bombs_group.add(bomb)
 
-    def add_explode_to_group(self, explode_obj):
-        collide = pygame.sprite.spritecollide(explode_obj, self.walls_group, False)
+    def add_explode_to_group(self, x, y):
+        explode = Explode(x, y, self.explode_group)
+        collide = pygame.sprite.spritecollide(explode, self.walls_group, False)
+        if collide:
+            explode.kill()
         if not collide:
-            self.explode_group.add(explode_obj)
+            self.explode_group.add(explode)

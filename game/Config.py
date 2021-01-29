@@ -5,3 +5,4 @@ class Config(object):
     SCREEN_HEIGHT = 750
     SCREEN_WIDTH = 750
     ENABLE_BOX_GENERATION = False
+    COLLISION_TOLLERANCE = 25

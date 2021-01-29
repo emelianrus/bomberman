@@ -1,6 +1,7 @@
 import pygame
 import os
 
+from game.Boxes import Explode
 from game.Config import Config
 
 
@@ -36,17 +37,28 @@ class BaseHero(pygame.sprite.Sprite):
             self.rect.y += self.speed
 
 
+class Enemy(BaseHero):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.image = pygame.image.load(os.path.join('img', 'enemy.png'))
+
+
 class Player(BaseHero):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.config = Config()
         self.max_bomb = 1
         self.current_bombs = 0
+        self.power = 1
         self.image = pygame.image.load(os.path.join('img', 'player.png'))
+        self.put_bomb_key_pressed = False
 
     def movement(self):
-        # TODO: change collided logic for player, it should smoothly avoid walls and blocks
-        # https://www.pygame.org/docs/ref/event.html
+        for event in pygame.event.get():
+            if event.type == pygame.KEYUP:
+                if event.key == 32:
+                    self.put_bomb_key_pressed = False
+
         pressed_key = pygame.key.get_pressed()
         if pressed_key[pygame.K_a]:
             self.move_left()
@@ -57,9 +69,12 @@ class Player(BaseHero):
         elif pressed_key[pygame.K_s]:
             self.move_down(self.config.SCREEN_HEIGHT)
         if pressed_key[pygame.K_SPACE]:
-            # TODO BUG: add more than 1 copies while pressing button
-            self.LEVEL.add_bomb_to_group(int(self.rect.x / 50), int(self.rect.y / 50))
-        # TODO: create explode here?
+            if not self.put_bomb_key_pressed:
+                # TODO: Should be True here
+                self.put_bomb_key_pressed = False
+                bx = int(self.rect.x / 50)
+                by = int(self.rect.y / 50)
+                self.LEVEL.add_bomb_to_group(bx, by, self.power)
 
     def draw(self, win, collided_group):
         self.movement()
@@ -74,7 +89,7 @@ class Player(BaseHero):
         # collide detect
         collide = pygame.sprite.spritecollide(self, collided_group, False)
         if collide:
-            collision_tollerance = 10
+            collision_tollerance = self.config.COLLISION_TOLLERANCE
             for i in collide:
                 if self.config.DEBUG:
                     pygame.draw.rect(win, (255, 111, 4), (i.rect.x, i.rect.y, 50, 50), 8)
@@ -88,7 +103,3 @@ class Player(BaseHero):
                     self.rect.x -= self.speed  # right
 
 
-class Enemy(BaseHero):
-    def __init__(self, x, y):
-        super().__init__(x, y)
-        self.image = pygame.image.load(os.path.join('img', 'enemy.png'))
