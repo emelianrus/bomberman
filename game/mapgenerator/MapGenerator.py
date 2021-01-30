@@ -42,9 +42,9 @@ class MapGenerator:
 
         random_list = random.sample(range(0, 10), 8)
 
-        magic_random_number = 3
+        box_magic_random_number = self.config.BOX_MAGIC_RANDOM_NUMBER
         for i in range(len(lists_round_boxes)):
-            if random_list[i] > magic_random_number:
+            if random_list[i] > box_magic_random_number:
                 self.level[lists_round_boxes[i]['i']][lists_round_boxes[i]['j']] = 2
 
     def generate_walls(self):

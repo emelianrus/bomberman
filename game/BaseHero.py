@@ -48,7 +48,7 @@ class Player(BaseHero):
         self.config = Config()
         self.max_bomb = 1
         self.current_bombs = 0
-        self.power = 1
+        self.power = 2
         self.image = pygame.image.load(os.path.join('img', 'player.png'))
         self.put_bomb_key_pressed = False
         self.bombs_amount = 2

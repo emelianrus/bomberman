@@ -7,16 +7,9 @@ Game map:
   + Draw enemies
 
 UI: 
-  + Display lives 
-  + Display timer
-  + Display lvl number 
   
 Player:
   - Limit bomb amount
-  + Draw player
-  + Player move
-  + Fix collide 
-  + Put bomb object
 
 Enemy:
   - Spawns in random place
@@ -30,24 +23,19 @@ Level system:
   - Random lvl generation 
   
 Boxes:
-  + Explode logic
   - Different types (2-3 lives???)
 
 bomb:
-  + Draw Bomb when press SPACE under player
-  + Add timer to bomb
-  + Bomb explode 
-  - Bomb remove nearest boxes
 
 --------------------------------------------
 Bugs:
-- Sometimes explode still left on screen
+- explode on 2nd power destroy boxes next to nearest
 
 Fixed:
 - player movement between blocks not smooth
 - Closing program not working properly (without walls works normally)
 - During second explode game starts lagging
-
+- Sometimes explode still left on screen
 
 
 
