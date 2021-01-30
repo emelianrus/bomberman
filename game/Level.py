@@ -45,7 +45,10 @@ class Level:
 
     def add_bomb_to_group(self, x, y, power):
         bomb = Bomb(x, y, self.bombs_group, power, self)
-        collide = pygame.sprite.spritecollide(bomb, self.walls_group, False)
+        collided_group = pygame.sprite.LayeredDirty()
+        collided_group.add([self.box_group, self.walls_group])
+
+        collide = pygame.sprite.spritecollide(bomb, collided_group, False)
         if collide:
             bomb.kill()
         if not collide:
