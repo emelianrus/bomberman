@@ -25,6 +25,7 @@ class Level:
                 if self.level[i][j] == 1:
                     Wall(i, j, self.walls_group)
                 if self.level[i][j] == 2:
+                    Floor(i, j, self.floor_group).dirty = 0
                     Box(i, j, self.box_group)
 
     def get_bombs_group(self):
@@ -52,8 +53,15 @@ class Level:
 
     def add_explode_to_group(self, x, y):
         explode = Explode(x, y, self.explode_group)
-        collide = pygame.sprite.spritecollide(explode, self.walls_group, False)
-        if collide:
+        collide_walls = pygame.sprite.spritecollide(explode, self.walls_group, False)
+        pygame.sprite.spritecollide(explode, self.box_group, True)
+
+        # start updating floor tiles after explosion
+        collide_floor = pygame.sprite.spritecollide(explode, self.floor_group, False)
+        for floor in collide_floor:
+            floor.dirty = 2
+
+        if collide_walls:
             explode.kill()
-        if not collide:
+        if not collide_walls:
             self.explode_group.add(explode)

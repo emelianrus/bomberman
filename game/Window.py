@@ -12,6 +12,7 @@ class Window:
         self.WIN = pygame.display.set_mode((self.config.SCREEN_WIDTH, self.config.SCREEN_HEIGHT))
         pygame.display.set_caption(self.config.GAME_CAPTION)
         self.RUN = True
+        self.clock = pygame.time.Clock()
 
         self.LEVEL = Level()
 
@@ -19,9 +20,6 @@ class Window:
 
         player = Player(50, 450)
         player.LEVEL = self.LEVEL
-        self.LEVEL = self.LEVEL
-
-        clock = pygame.time.Clock()
 
         collided_group = pygame.sprite.Group()
 
@@ -29,7 +27,7 @@ class Window:
             pygame_event = pygame.event.get()
             pygame_key_pressed = pygame.key.get_pressed()
 
-            clock.tick(self.config.FPS)
+            self.clock.tick(self.config.FPS)
             for event in pygame_event:
                 if event.type == pygame.QUIT:
                     self.RUN = False
