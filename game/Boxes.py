@@ -5,7 +5,10 @@ import os
 class Base(pygame.sprite.DirtySprite):
     def __init__(self, x, y, group):
         super().__init__()
-        self.dirty = 0
+        # 0 means that it is not dirty and therefore not repainted again
+        # 1, it is repainted and then set to 0 again
+        # 2 then it is always dirty ( repainted each frame, flag is not reset)
+        self.dirty = 2
         self.id: int
         self.x = x
         self.y = y
@@ -73,11 +76,9 @@ class Explode(Base):
 class Bomb(Base):
     def __init__(self, x, y, group, power, level):
         super().__init__(x, y, group)
+        self.LEVEL = level
         self.id = 4  # unused
         self.hp = 1  # unused
-        self.x = x
-        self.y = y
-        self.LEVEL = level
         self.power = power
         self.life_time_sec = 3  # unused
         self.create_time_sec = int(((int(pygame.time.get_ticks()) / 1000) % 60))

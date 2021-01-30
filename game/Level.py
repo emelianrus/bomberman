@@ -4,15 +4,14 @@ from game.Boxes import Box, Wall, Bomb, Floor, Explode
 from game.mapgenerator.MapGenerator import MapGenerator
 
 
-# TODO: REFACTOR NEEDED
 class Level:
 
     def __init__(self):
-        self.walls_group = pygame.sprite.Group()
-        self.floor_group = pygame.sprite.Group()
-        self.bombs_group = pygame.sprite.Group()
-        self.box_group = pygame.sprite.Group()
-        self.explode_group = pygame.sprite.Group()
+        self.walls_group = pygame.sprite.LayeredDirty()
+        self.floor_group = pygame.sprite.LayeredDirty()
+        self.bombs_group = pygame.sprite.LayeredDirty()
+        self.box_group = pygame.sprite.LayeredDirty()
+        self.explode_group = pygame.sprite.LayeredDirty()
 
         self.level = MapGenerator().get_map()
         self.generate_lvl()

@@ -24,22 +24,27 @@ class Window:
         clock = pygame.time.Clock()
 
         collided_group = pygame.sprite.Group()
-        self.LEVEL.get_walls_group().draw(self.WIN)
+
         while self.RUN:
+            pygame_event = pygame.event.get()
+            pygame_key_pressed = pygame.key.get_pressed()
+
             clock.tick(self.config.FPS)
-            for event in pygame.event.get():
+            for event in pygame_event:
                 if event.type == pygame.QUIT:
                     self.RUN = False
 
             self.LEVEL.get_floor_group().draw(self.WIN)
+            self.LEVEL.get_walls_group().draw(self.WIN)
             self.LEVEL.get_box_group().draw(self.WIN)
             self.LEVEL.get_bombs_group().draw(self.WIN)
             self.LEVEL.get_explode_group().draw(self.WIN)
 
             # TODO: i don't like "add" here
-            collided_group.add([self.LEVEL.get_box_group(), self.LEVEL.get_walls_group()])
+            collided_group.add([self.LEVEL.get_box_group(), self.LEVEL.get_walls_group(), self.LEVEL.get_bombs_group()])
 
-            player.draw(self.WIN, collided_group)
+            player.update(self.WIN, collided_group)
+            player.movement(pygame_event, pygame_key_pressed)
 
             self.LEVEL.bombs_group.update()
             self.LEVEL.explode_group.update()
@@ -52,7 +57,7 @@ class Window:
         # Update walls under the HUD
         for wall in self.LEVEL.get_walls_group():
             if wall.y == 0:
-                wall.update(self.WIN)
+                wall.dirty = 1
 
         font = pygame.font.SysFont("monospace", 25)
         font.set_bold(True)

@@ -1,9 +1,5 @@
 TODO:
 
-Taks:
-1) put bomb by space button
-2) Box lives and crushes
-
 Game map:
   + Draw board
   + Add background texture 
@@ -16,6 +12,7 @@ UI:
   + Display lvl number 
   
 Player:
+  - Limit bomb amount
   + Draw player
   + Player move
   + Fix collide 
@@ -45,13 +42,11 @@ bomb:
 --------------------------------------------
 Bugs:
 - Sometimes explode still left on screen
-- During second explode game starts lagging
-- Closing program not working properly (without walls works normally)
 
 Fixed:
 - player movement between blocks not smooth
-
-
+- Closing program not working properly (without walls works normally)
+- During second explode game starts lagging
 
 
 

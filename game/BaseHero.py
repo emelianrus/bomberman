@@ -1,7 +1,6 @@
 import pygame
 import os
 
-from game.Boxes import Explode
 from game.Config import Config
 
 
@@ -52,32 +51,34 @@ class Player(BaseHero):
         self.power = 1
         self.image = pygame.image.load(os.path.join('img', 'player.png'))
         self.put_bomb_key_pressed = False
+        self.bombs_amount = 2
 
-    def movement(self):
-        for event in pygame.event.get():
+    def put_bomb(self):
+        self.put_bomb_key_pressed = True
+        bx = int(self.rect.x / 50)
+        by = int(self.rect.y / 50)
+        self.LEVEL.add_bomb_to_group(bx, by, self.power)
+        self.current_bombs += 1
+
+    def movement(self, py_event, py_keys):
+        for event in py_event:
             if event.type == pygame.KEYUP:
                 if event.key == 32:
                     self.put_bomb_key_pressed = False
 
-        pressed_key = pygame.key.get_pressed()
-        if pressed_key[pygame.K_a]:
+        if py_keys[pygame.K_a]:
             self.move_left()
-        elif pressed_key[pygame.K_d]:
+        elif py_keys[pygame.K_d]:
             self.move_right(self.config.SCREEN_WIDTH)
-        elif pressed_key[pygame.K_w]:
+        elif py_keys[pygame.K_w]:
             self.move_up()
-        elif pressed_key[pygame.K_s]:
+        elif py_keys[pygame.K_s]:
             self.move_down(self.config.SCREEN_HEIGHT)
-        if pressed_key[pygame.K_SPACE]:
+        if py_keys[pygame.K_SPACE]:
             if not self.put_bomb_key_pressed:
-                # TODO: Should be True here
-                self.put_bomb_key_pressed = False
-                bx = int(self.rect.x / 50)
-                by = int(self.rect.y / 50)
-                self.LEVEL.add_bomb_to_group(bx, by, self.power)
+                self.put_bomb()
 
-    def draw(self, win, collided_group):
-        self.movement()
+    def update(self, win, collided_group):
         win.blit(pygame.transform.scale(self.image, (self.width, self.height)),
                  (self.rect.x, self.rect.y))
 
