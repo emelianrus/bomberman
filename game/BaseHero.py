@@ -60,7 +60,6 @@ class Player(BaseHero):
             return
         bx = int((self.rect.x+25) / 50)
         by = int((self.rect.y+25) / 50)
-        print(f"{bx}:{by}")
         self.LEVEL.add_bomb_to_group(bx, by, self)
         self.current_bombs += 1
 
