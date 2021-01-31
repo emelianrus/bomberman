@@ -1,5 +1,4 @@
 TODO:
-  - Limit bomb amount
   - Do not spawn boxes near the player
   - Spawn player in random place
   - Spawn player in random place 
