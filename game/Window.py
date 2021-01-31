@@ -47,11 +47,11 @@ class Window:
             self.LEVEL.bombs_group.update()
             self.LEVEL.explode_group.update()
 
-            self.draw_hud()
+            self.draw_hud(player)
 
             pygame.display.update()
 
-    def draw_hud(self):
+    def draw_hud(self, player):
         # Update walls under the HUD
         for wall in self.LEVEL.get_walls_group():
             if wall.y == 0:
@@ -68,6 +68,6 @@ class Window:
         hours = (millis / (1000 * 60 * 60)) % 24
         time_in_sec = ("%d:%d:%d" % (hours, minutes, seconds))
 
-        hud = font.render("Time: {}     Level: {}     Lives: {}".format(time_in_sec, 1, 1), 1, (255, 255, 255))
+        hud = font.render("Time: {}   Level: {}  Lives: {}  Power: {}".format(time_in_sec, 1, 1, player.power), 1, (255, 255, 255))
 
         self.WIN.blit(hud, (15, 15))
