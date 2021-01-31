@@ -56,7 +56,7 @@ class Player(BaseHero):
     def put_bomb(self):
         self.put_bomb_key_pressed = True
         # Bomb limit reached
-        if self.current_bombs >= self.max_bomb:
+        if self.current_bombs > self.max_bomb:
             return
         bx = int((self.rect.x+25) / 50)
         by = int((self.rect.y+25) / 50)
