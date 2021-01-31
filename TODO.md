@@ -1,4 +1,9 @@
 TODO:
+  - Limit bomb amount
+  - Do not spawn boxes near the player
+  - Spawn player in random place
+  - Spawn player in random place 
+
 
 Game map:
   + Draw board
@@ -26,10 +31,12 @@ Boxes:
   - Different types (2-3 lives???)
 
 bomb:
+  - Different types? 
 
 --------------------------------------------
 Bugs:
-- Slow frame rate
+
+
 
 Fixed:
 - player movement between blocks not smooth

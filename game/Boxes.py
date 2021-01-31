@@ -87,12 +87,12 @@ class Explode(BaseTile):
 
 
 class Bomb(BaseTile):
-    def __init__(self, x, y, group, power, level):
+    def __init__(self, x, y, group, player, level):
         super().__init__(x, y, group)
         self.LEVEL = level
+        self.PLAYER = player
         self.id = 4  # unused
         self.hp = 1  # unused
-        self.power = power
         self.life_time_sec = 3  # unused
         self.image = pygame.transform.scale(pygame.image.load(os.path.join('img', 'bomb.png')), (self.width, self.height))
 
@@ -107,5 +107,6 @@ class Bomb(BaseTile):
 
     # return explode group
     def activate(self):
+        self.PLAYER.current_bombs -= 1
         # TODO: REFACT hard to track explode power
-        self.LEVEL.add_explode_to_group(self.x, self.y)  # center
+        self.LEVEL.add_explode_to_group(self.x, self.y, self.PLAYER.power)  # center

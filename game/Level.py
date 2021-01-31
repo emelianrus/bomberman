@@ -43,8 +43,8 @@ class Level:
     def get_explode_group(self):
         return self.explode_group
 
-    def add_bomb_to_group(self, x, y, power):
-        bomb = Bomb(x, y, self.bombs_group, power, self)
+    def add_bomb_to_group(self, x, y, player):
+        bomb = Bomb(x, y, self.bombs_group, player, self)
         collided_group = pygame.sprite.LayeredDirty()
         collided_group.add([self.box_group, self.walls_group])
 
@@ -54,21 +54,19 @@ class Level:
         if not collide:
             self.bombs_group.add(bomb)
 
-    def add_explode_to_group(self, x, y):
-        power = 2  # TODO: fix this
-
+    def add_explode_to_group(self, x, y, power):
         Explode(x, y, self.explode_group)  # center
 
-        def check_collide(ex):
-            collide_walls = pygame.sprite.spritecollide(ex, self.walls_group, False)
-            collide_box = pygame.sprite.spritecollide(ex, self.box_group, True)
-            # start updating floor tiles after explosion
-            collide_floor = pygame.sprite.spritecollide(ex, self.floor_group, False)
+        def check_collide(explode):
+            collide_walls = pygame.sprite.spritecollide(explode, self.walls_group, False)
+            collide_box = pygame.sprite.spritecollide(explode, self.box_group, True)
+            # TODO: start updating floor tiles after explosion
+            collide_floor = pygame.sprite.spritecollide(explode, self.floor_group, False)
             for floor in collide_floor:
                 floor.dirty = 2  # 2 it is always dirty
 
             if collide_walls:
-                ex.kill()
+                explode.kill()
                 return True
 
             if collide_box:
@@ -77,7 +75,7 @@ class Level:
                 return True
 
             if not collide_walls:
-                self.explode_group.add(ex)
+                self.explode_group.add(explode)
 
         for i in range(1, power + 1):
             if check_collide(Explode(x + i, y, self.explode_group)):  # right line
