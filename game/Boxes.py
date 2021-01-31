@@ -73,7 +73,6 @@ class Explode(BaseTile):
         self.image2 = pygame.transform.scale(pygame.image.load(os.path.join('img', 'explosion_c.png')), (50, 50))
 
     def update(self):
-        # TODO: somewhere here bug with undeleted objects
         if self.config.DEBUG_SHOW_BOMB_TIMERS:
             print(f"{self}::{id(self)}:{self.create_time_sec + 1} >= {get_time_sec()}")
         if self.create_time_sec + 1 <= get_time_sec():
@@ -105,8 +104,6 @@ class Bomb(BaseTile):
             self.activate()
             self.kill()
 
-    # return explode group
     def activate(self):
         self.PLAYER.current_bombs -= 1
-        # TODO: REFACT hard to track explode power
         self.LEVEL.add_explode_to_group(self.x, self.y, self.PLAYER.power)  # center
