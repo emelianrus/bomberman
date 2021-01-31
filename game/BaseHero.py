@@ -46,7 +46,7 @@ class Player(BaseHero):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.config = Config()
-        self.max_bomb = 1
+        self.max_bomb = 2
         self.current_bombs = 0
         self.power = 2
         self.image = pygame.image.load(os.path.join('img', 'player.png'))
@@ -56,7 +56,7 @@ class Player(BaseHero):
     def put_bomb(self):
         self.put_bomb_key_pressed = True
         # Bomb limit reached
-        if self.current_bombs > self.max_bomb:
+        if self.current_bombs >= self.max_bomb:
             return
         bx = int((self.rect.x+25) / 50)
         by = int((self.rect.y+25) / 50)

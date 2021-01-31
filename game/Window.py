@@ -57,7 +57,7 @@ class Window:
             if wall.y == 0:
                 wall.dirty = 1
 
-        font = pygame.font.SysFont("monospace", 25)
+        font = pygame.font.SysFont("monospace", 20)
         font.set_bold(True)
         millis = pygame.time.get_ticks()
         millis = int(millis)
@@ -68,6 +68,10 @@ class Window:
         hours = (millis / (1000 * 60 * 60)) % 24
         time_in_sec = ("%d:%d:%d" % (hours, minutes, seconds))
 
-        hud = font.render("Time: {}   Level: {}  Lives: {}  Power: {}".format(time_in_sec, 1, 1, player.power), 1, (255, 255, 255))
+        hud = font.render(f"  Time: {time_in_sec} "
+                          f"Level: {1} "
+                          f"Lives: {1} "
+                          f"Power: {player.power} "
+                          f"Bombs: {player.max_bomb - player.current_bombs}", 1, (255, 255, 255))
 
         self.WIN.blit(hud, (15, 15))
