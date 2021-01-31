@@ -16,6 +16,7 @@ class BaseTile(pygame.sprite.DirtySprite):
         # 1, it is repainted and then set to 0 again
         # 2 then it is always dirty ( repainted each frame, flag is not reset)
         self.config = Config()
+        group.add(self)
         self.dirty = 2
         self.id: int
         self.x = x
@@ -30,7 +31,6 @@ class BaseTile(pygame.sprite.DirtySprite):
         self.rect.x = x * self.width
         self.rect.y = y * self.height
         self.hp: int  # unused
-        group.add(self)
 
 
 class Box(BaseTile):
@@ -97,7 +97,6 @@ class Bomb(BaseTile):
         self.image = pygame.transform.scale(pygame.image.load(os.path.join('img', 'bomb.png')), (self.width, self.height))
 
     def update(self):
-        # TODO: somewhere here bug with undeleted objects
         if self.config.DEBUG_SHOW_BOMB_TIMERS:
             print(f"{self}::{id(self)}:{self.create_time_sec + 3} >= {get_time_sec()}")
         if self.create_time_sec + 3 <= get_time_sec():
@@ -108,9 +107,5 @@ class Bomb(BaseTile):
 
     # return explode group
     def activate(self):
-        for i in range(1, self.power+1):
-            self.LEVEL.add_explode_to_group(self.x + i, self.y)
-            self.LEVEL.add_explode_to_group(self.x - i, self.y)
-            self.LEVEL.add_explode_to_group(self.x, self.y - i)
-            self.LEVEL.add_explode_to_group(self.x, self.y + i)
-        self.LEVEL.add_explode_to_group(self.x, self.y)
+        # TODO: REFACT hard to track explode power
+        self.LEVEL.add_explode_to_group(self.x, self.y)  # center

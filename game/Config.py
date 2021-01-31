@@ -8,3 +8,4 @@ class Config(object):
     COLLISION_TOLLERANCE = 25
     BOX_MAGIC_RANDOM_NUMBER = 6
     DEBUG_SHOW_BOMB_TIMERS = False
+    NO_CLIP = False

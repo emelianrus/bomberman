@@ -17,7 +17,7 @@ Enemy:
   - Drop bombs 
 
 Bonus system:
-  - Should spawn bonus if break down random box
+  - Should spawn bonus under random box
 
 Level system:
   - Random lvl generation 
@@ -29,14 +29,14 @@ bomb:
 
 --------------------------------------------
 Bugs:
-- explode on 2nd power destroy boxes next to nearest
+- Slow frame rate
 
 Fixed:
 - player movement between blocks not smooth
 - Closing program not working properly (without walls works normally)
 - During second explode game starts lagging
 - Sometimes explode still left on screen
-
+- explode on 2nd power destroy boxes next to destroyed one 
 
 
 

@@ -55,16 +55,41 @@ class Level:
             self.bombs_group.add(bomb)
 
     def add_explode_to_group(self, x, y):
-        explode = Explode(x, y, self.explode_group)
-        collide_walls = pygame.sprite.spritecollide(explode, self.walls_group, False)
-        pygame.sprite.spritecollide(explode, self.box_group, True)
+        power = 2  # TODO: fix this
 
-        # start updating floor tiles after explosion
-        collide_floor = pygame.sprite.spritecollide(explode, self.floor_group, False)
-        for floor in collide_floor:
-            floor.dirty = 2
+        Explode(x, y, self.explode_group)  # center
 
-        if collide_walls:
-            explode.kill()
-        if not collide_walls:
-            self.explode_group.add(explode)
+        def check_collide(ex):
+            collide_walls = pygame.sprite.spritecollide(ex, self.walls_group, False)
+            collide_box = pygame.sprite.spritecollide(ex, self.box_group, True)
+            # start updating floor tiles after explosion
+            collide_floor = pygame.sprite.spritecollide(ex, self.floor_group, False)
+            for floor in collide_floor:
+                floor.dirty = 2  # 2 it is always dirty
+
+            if collide_walls:
+                ex.kill()
+                return True
+
+            if collide_box:
+                for box in collide_box:
+                    box.kill()
+                return True
+
+            if not collide_walls:
+                self.explode_group.add(ex)
+
+        for i in range(1, power + 1):
+            if check_collide(Explode(x + i, y, self.explode_group)):  # right line
+                break
+        for i in range(1, power + 1):
+            if check_collide(Explode(x - i, y, self.explode_group)):  # left line
+                break
+        for i in range(1, power + 1):
+            if check_collide(Explode(x, y - i, self.explode_group)):  # top line
+                break
+        for i in range(1, power + 1):
+            if check_collide(Explode(x, y + i, self.explode_group)):  # down line
+                break
+
+

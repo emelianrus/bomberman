@@ -55,8 +55,9 @@ class Player(BaseHero):
 
     def put_bomb(self):
         self.put_bomb_key_pressed = True
-        bx = int(self.rect.x / 50)
-        by = int(self.rect.y / 50)
+        bx = int((self.rect.x+25) / 50)
+        by = int((self.rect.y+25) / 50)
+        print(f"{bx}:{by}")
         self.LEVEL.add_bomb_to_group(bx, by, self.power)
         self.current_bombs += 1
 
@@ -74,6 +75,7 @@ class Player(BaseHero):
             self.move_up()
         elif py_keys[pygame.K_s]:
             self.move_down(self.config.SCREEN_HEIGHT)
+
         if py_keys[pygame.K_SPACE]:
             if not self.put_bomb_key_pressed:
                 self.put_bomb()
@@ -94,13 +96,15 @@ class Player(BaseHero):
             for i in collide:
                 if self.config.DEBUG:
                     pygame.draw.rect(win, (255, 111, 4), (i.rect.x, i.rect.y, 50, 50), 8)
-                if abs(i.rect.top - self.rect.bottom) < collision_tollerance:
-                    self.rect.y -= self.speed  # down
-                if abs(i.rect.bottom - self.rect.top) < collision_tollerance:
-                    self.rect.y += self.speed  # up
-                if abs(i.rect.right - self.rect.left) < collision_tollerance:
-                    self.rect.x += self.speed  # left
-                if abs(i.rect.left - self.rect.right) < collision_tollerance:
-                    self.rect.x -= self.speed  # right
+
+                if not self.config.NO_CLIP:
+                    if abs(i.rect.top - self.rect.bottom) < collision_tollerance:
+                        self.rect.y -= self.speed  # down
+                    if abs(i.rect.bottom - self.rect.top) < collision_tollerance:
+                        self.rect.y += self.speed  # up
+                    if abs(i.rect.right - self.rect.left) < collision_tollerance:
+                        self.rect.x += self.speed  # left
+                    if abs(i.rect.left - self.rect.right) < collision_tollerance:
+                        self.rect.x -= self.speed  # right
 
 
