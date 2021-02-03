@@ -7,11 +7,12 @@
 
 ### Game map:
 #### todo
++ Draw enemies
 #### done
   + Draw board
   + Add background texture 
   + Draw boxes
-  + Draw enemies
+  
 
 ### UI:
 #### todo
@@ -22,6 +23,7 @@
   
 ### Player:
 #### todo
+- Movement animation
 #### done
 - Draw player
 - Player move
@@ -48,14 +50,15 @@
   
 ### Boxes:
 #### todo
-- Explode animation? 
+- Explode animation (3pic per sec) destroy time = 1 sec 
 
 #### done
 - Explode logic
 - Different types (2-3 lives???)
 
-### bomb:
+### Bomb:
 #### todo
+- Tick animaton (3pic per sec)
 #### done
 - Draw Bomb when press SPACE under player
 - Add timer to bomb

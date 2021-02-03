@@ -18,7 +18,7 @@ class Window:
 
     def drawing(self):
 
-        player = Player(50, 450)
+        player = Player(1, 4)
         player.LEVEL = self.LEVEL
 
         collided_group = pygame.sprite.Group()
@@ -70,7 +70,7 @@ class Window:
 
         hud = font.render(f"  Time: {time_in_sec} "
                           f"Level: {1} "
-                          f"Lives: {1} "
+                          f"Lives: {player.lives} "
                           f"Power: {player.power} "
                           f"Bombs: {player.max_bomb - player.current_bombs}", 1, (255, 255, 255))
 

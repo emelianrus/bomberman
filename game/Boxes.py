@@ -41,6 +41,10 @@ class Box(BaseTile):
         self.image = pygame.transform.scale(pygame.image.load(os.path.join('img', 'box.png')), (self.width, self.height))
 
 
+    # destroy box animation
+    def destroy(self):
+        pass
+
 class Wall(BaseTile):
     def __init__(self, x, y, group):
         super().__init__(x, y, group)

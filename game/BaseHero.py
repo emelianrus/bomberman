@@ -8,12 +8,15 @@ class BaseHero(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         self.config = Config()
+        self.x = x
+        self.y = y
+        self.lives = 1
         self.width = 30
         self.height = 30
-        self.image = pygame.image.load(os.path.join('img', 'player.png'))
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join('img', 'player.png')), (self.width, self.height))
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.x = x * 50
+        self.rect.y = y * 50
         self.rect.width = self.width
         self.rect.height = self.height
         self.LEVEL = None
@@ -49,6 +52,7 @@ class Player(BaseHero):
         self.max_bomb = 2
         self.current_bombs = 0
         self.power = 2
+        self.lives = 3
         self.image = pygame.image.load(os.path.join('img', 'player.png'))
         self.put_bomb_key_pressed = False
         self.bombs_amount = 2
@@ -83,6 +87,9 @@ class Player(BaseHero):
                 self.put_bomb()
 
     def update(self, win, collided_group):
+        if self.lives == 0:
+            print("GAME OVER")
+            self.config.FPS = 0
         win.blit(pygame.transform.scale(self.image, (self.width, self.height)),
                  (self.rect.x, self.rect.y))
 

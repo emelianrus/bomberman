@@ -89,5 +89,3 @@ class Level:
         for i in range(1, power + 1):
             if check_collide(Explode(x, y + i, self.explode_group)):  # down line
                 break
-
-
